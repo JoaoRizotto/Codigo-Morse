@@ -29,8 +29,376 @@ Esse projeto tem como objetivo transformar alguma palavra digitada pelo usuário
 
 ### Esquema montado no programa "Fritzing":
 
-![GitHub](Esquema2.jpeg)
+![GitHub](Esquema2.jpg)
 
 ### Esquema físico:
 
 ![GitHub](Esquema.jpeg)
+
+
+## Código:
+
+```C
+#include <Wire.h>
+#include <LiquidCrystal_I2C.h>
+
+//Pino ligado ao buzzer
+int buzzer = 6;
+//String
+char letra;
+//Display no endereco 0x27
+LiquidCrystal_I2C lcd(0x27,2,1,0,4,5,6,7,3, POSITIVE);
+ 
+void setup()
+{
+ Serial.begin(9600);
+ //Define o pino do Buzzer como Saida 
+ pinMode(buzzer,OUTPUT);  
+ //Define o tamanho do LCD
+ lcd.begin (16,2);
+ //Liga a luz do LCD
+ lcd.setBacklight(HIGH);
+ //Setar o cursor na coluna 0 e linha 0
+  lcd.setCursor(0, 0);
+  //Fixa essa mensagem
+  lcd.print("Codigo Morse:");
+}
+ 
+void loop()
+{ 
+  //Setar o cursor na coluna 0 e linha 1
+  lcd.setCursor(0, 1);
+  //Verifica se tem letras no Serial
+  if(Serial.available())
+  {
+    letra = Serial.read();
+            
+    if(letra == ' ')
+    {
+      //Imprime no LCD
+      lcd.print("NONE"); 
+      delay(1000);
+    }
+    else if(letra == 'a')
+    {
+      bus_ponto();
+      delay(1000);
+      bus_linha();
+      delay(500);
+      lcd.print("      A");
+      delay(3000);      
+    }
+    else if(letra == 'b')
+    {
+      bus_linha();
+      delay(1000);
+      bus_ponto();
+      delay(1000);
+      bus_ponto();
+      delay(1000);
+      bus_ponto();
+      delay(500);
+      lcd.print("    B");
+      delay(3000);
+    }
+    else if(letra == 'c')
+    {
+      bus_linha();
+      delay(1000);
+      bus_ponto();
+      delay(1000);
+      bus_linha();
+      delay(1000);
+      bus_ponto();
+    delay(500);
+      lcd.print("    C");
+      delay(3000);
+    }
+    else if(letra == 'd')
+    {
+      bus_linha();
+      delay(1000);
+      bus_ponto();
+      delay(1000);
+      bus_ponto();
+    delay(500);
+      lcd.print("     D");
+      delay(3000);
+    }
+    else if(letra == 'e')
+    {
+      bus_ponto();
+    delay(500);
+      lcd.print("       E");
+      delay(3000);
+    }
+    else if(letra == 'f')
+    {
+      bus_ponto();
+      delay(1000);
+      bus_ponto();
+      delay(1000);
+      bus_linha();
+      delay(1000);
+      bus_ponto();
+    delay(500);
+      lcd.print("    F");
+      delay(3000);
+    }
+    else if(letra == 'g')
+    {
+      bus_linha();
+      delay(1000);
+      bus_linha();
+      delay(1000);
+      bus_ponto();
+    delay(500);
+      lcd.print("     G");
+      delay(3000);
+    }
+    else if(letra == 'h')
+    {
+      bus_ponto();
+      delay(1000);
+      bus_ponto();
+      delay(1000);
+      bus_ponto();
+      delay(1000);
+      bus_ponto();
+    delay(500);
+      lcd.print("    H");
+      delay(3000);
+    }
+    else if(letra == 'i')
+    {
+      bus_ponto();
+      delay(1000);
+      bus_ponto();
+    delay(500);
+      lcd.print("      I");
+      delay(3000);
+    }
+    else if(letra == 'j')
+    {
+      bus_ponto();
+      delay(1000);
+      bus_linha();
+      delay(1000);
+      bus_linha();
+      delay(1000);
+      bus_linha();
+      delay(500);
+      lcd.print("    J");
+      delay(3000);
+    }
+    else if(letra == 'k')
+    {
+      bus_linha();
+      delay(1000);
+      bus_ponto();
+      delay(1000);
+      bus_linha();
+    delay(500);
+      lcd.print("     K");
+      delay(3000);      
+    }
+    else if(letra == 'l')
+    {
+      bus_ponto();
+      delay(1000);
+      bus_linha();
+      delay(1000);
+      bus_ponto();
+      delay(1000);
+      bus_ponto();
+    delay(500);
+      lcd.print("    L");
+      delay(3000);
+    }
+    else if(letra == 'm')
+    {
+      bus_linha();
+      delay(1000);
+      bus_linha();
+    delay(500);
+      lcd.print("      M");
+      delay(3000);
+    }
+    else if(letra == 'n')
+    {
+      bus_linha();
+      delay(1000);
+      bus_ponto();
+    delay(500);
+      lcd.print("      N");
+      delay(3000);
+    }
+    else if(letra == 'o')
+    {
+      bus_linha();
+      delay(1000);
+      bus_linha();
+      delay(1000);
+      bus_linha();
+      delay(500);
+      lcd.print("     O");
+      delay(3000);
+    }
+    else if(letra == 'p')
+    {
+      bus_ponto();
+      delay(1000);
+      bus_linha();
+      delay(1000);
+      bus_linha();
+      delay(1000);
+      bus_ponto();
+    delay(500);
+      lcd.print("    P");
+      delay(3000);
+    }
+    else if(letra == 'q')
+    {
+      bus_linha();
+      delay(1000);
+      bus_linha();
+      delay(1000);
+      bus_ponto();
+      delay(1000);
+      bus_linha();
+    delay(500);
+      lcd.print("    Q");
+      delay(3000);
+    }
+    else if(letra == 'r')
+    {
+      bus_ponto();
+      delay(1000);
+      bus_linha();
+      delay(1000);
+      bus_ponto();
+    delay(500);
+      lcd.print("     R");
+      delay(3000);
+    }
+    else if(letra == 's')
+    {
+      bus_ponto();
+      delay(1000);
+      bus_ponto();
+      delay(1000);
+      bus_ponto();
+    delay(500);
+      lcd.print("     S");
+      delay(3000);
+    }
+    else if(letra == 't')
+    {
+      bus_linha();
+    delay(500);
+      lcd.print("       T");
+      delay(3000);
+    }
+    else if(letra == 'u')
+    {
+      bus_ponto();
+      delay(1000);
+      bus_ponto();
+      delay(1000);
+      bus_linha();
+    delay(500);
+      lcd.print("     U");
+      delay(3000);
+    }
+    else if(letra == 'v')
+    {
+      bus_ponto();
+      delay(1000);
+      bus_ponto();
+      delay(1000);
+      bus_ponto();
+      delay(1000);
+      bus_linha();
+    delay(500);
+      lcd.print("    V");
+      delay(3000);
+    }
+    else if(letra == 'w')
+    {
+      bus_ponto();
+      delay(1000);
+      bus_linha();
+      delay(1000);
+      bus_linha();
+    delay(500);
+      lcd.print("     W");
+      delay(3000);
+    }
+    else if(letra == 'x')
+    {
+      bus_linha();
+      delay(1000);
+      bus_ponto();
+      delay(1000);
+      bus_ponto();
+      delay(1000);
+      bus_linha();
+    delay(500);
+      lcd.print("    X");
+      delay(3000);
+    }
+    else if(letra == 'y')
+    {
+      bus_linha();
+      delay(1000);
+      bus_ponto();
+      delay(1000);
+      bus_linha();
+      delay(1000);
+      bus_linha();
+    delay(500);
+      lcd.print("    Y");
+      delay(3000);
+    }
+    else if(letra == 'z')
+    {
+      bus_linha();
+      delay(1000);
+      bus_linha();
+      delay(1000);
+      bus_ponto();
+      delay(1000);
+      bus_ponto();
+    delay(500);
+      lcd.print("    Z");
+      delay(3000);
+    }
+
+    lcd.setCursor(0,1);
+    lcd.print("          ");
+  }
+  
+}
+
+void bus_ponto()
+{
+    tone(buzzer,100);  //Quanto maior o numero, mais agudo vai ser. Frequencia em Hz
+    //Imprime no LCD
+    lcd.print("*");  
+    //Espera um tempo para Desativar
+    delay(100);
+    //Desativa o buzzer
+    noTone(buzzer); 
+}
+
+void bus_linha()
+{
+    tone(buzzer,1000);  //Quanto maior o numero, mais agudo vai ser. Frequencia em Hz
+    //Imprime no LCD
+    lcd.print("-"); 
+    //Espera um tempo para Desativar
+    delay(300);
+    //Desativa o buzzer
+    noTone(buzzer); 
+}
+```
